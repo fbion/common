@@ -5,13 +5,41 @@ package designpattern.state;
  * Created by Administrator on 2016/5/25.
  */
 public class GumballMachine {
+
+    /**
+     * 糖果售空状态
+     */
     State soldOutState;
+
+    /**
+     * 未投币状态
+     */
     State noQuarterState;
+
+    /**
+     * 已投币状态
+     */
     State hasQuarterState;
+
+    /**
+     * 售出糖果状态
+     */
     State soldState;
+
+
+    /**
+     * 糖果售空状态
+     */
     State winnerState;
 
+    /**
+     * 状态
+     */
     State state = soldOutState;
+
+    /**
+     * 糖果数
+     */
     int count = 0;
 
     public GumballMachine(int count) {

@@ -34,6 +34,7 @@ public class CompositeIterator implements Iterator {
             Iterator<MenuComponent> iterator = stack.peek();
             MenuComponent menuComponent = iterator.next();
             if(menuComponent instanceof Menu) {
+                System.out.println("---------------------push");
                 stack.push((menuComponent).createIterator());
             }
             return menuComponent;

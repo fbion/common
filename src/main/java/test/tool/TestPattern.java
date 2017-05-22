@@ -1,5 +1,8 @@
 package test.tool;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by Administrator on 2016/3/21.
  */
@@ -28,12 +31,12 @@ public class TestPattern {
 //        System.out.println("123jasldfuwoie123235+_".replaceAll("(\\d*)", "$1$1"));
 //        System.out.println("!@#&(*$&as+-df123jasldfuwoie123235+_1234ewer13".replaceAll("(\\D*\\d+\\D*)(\\d*)(\\D*)(\\.*)", "$1$2$2$3$4"));
 
-//        String str1 = "abaaababbabbbaaba";
-//        Pattern p1 = Pattern.compile("([ab])\\1{2}");
-//        Matcher m1 = p1.matcher(str1);
-//        while(m1.find()) {
-//            System.out.println(m1.group());
-//        }
+        String str1 = "abaaababbabbbaaba";
+        Pattern p1 = Pattern.compile("([ab])\\1{2}");
+        Matcher m1 = p1.matcher(str1);
+        while(m1.find()) {
+            System.out.println(m1.group());
+        }
 
 
 //        Pattern p1 = Pattern.compile("(https?:)(//)(\\w+\\.)+(\\w+)(/index\\.jsp)");
@@ -62,8 +65,8 @@ public class TestPattern {
 //        System.out.println("http://127.0.0.1:9000/manager/ka8098o4u90987cv9b".startsWith("http://127.0.0.1:9000/manager/ka8098o4u90987cv9b"));
 
 
-        String str = "搬家时间\t\t百度糯米\t\t公司\t\t优惠\t\t机票\t\t退款\t\t支付账户\t\t今天\t\t今天晚上\t\t今天可以\t\t过生日\t\t小来的红包\t\t而且那天晚上\t\t我现在的位置\t\t我的具体位置\t\t帮我看看\t\t怎么使用\t\t订一杯咖啡\t\t任何时候都\t\t好像有酒店优惠券\t\t时间限制\t\t害羞\t\t网购\t\t设置\t\t怎样";
-        System.out.println(str.split("\\s+").length);
+//        String str = "搬家时间\t\t百度糯米\t\t公司\t\t优惠\t\t机票\t\t退款\t\t支付账户\t\t今天\t\t今天晚上\t\t今天可以\t\t过生日\t\t小来的红包\t\t而且那天晚上\t\t我现在的位置\t\t我的具体位置\t\t帮我看看\t\t怎么使用\t\t订一杯咖啡\t\t任何时候都\t\t好像有酒店优惠券\t\t时间限制\t\t害羞\t\t网购\t\t设置\t\t怎样";
+//        System.out.println(str.split("\\s+").length);
         //charset unicode   UTF-16LE    utf-8
 //        try(OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(new File("f:\\test111.txt"),true),"gbk")){
 //            out.write(str);

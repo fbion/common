@@ -13,9 +13,22 @@ public class Test1 {
 //        }
     }
 
+    static void mytest(MyInterface i) {
+        System.out.println(i.test());
+    }
+
+
     public static void main(String[] args) {
         String s = "";
         s += null;
         System.out.println(s);
+        String s1 = null;
+        s1 += "";
+        System.out.println(s1);
+        mytest(() -> "test");
     }
+}
+
+interface MyInterface{
+    String test();
 }
