@@ -1,4 +1,4 @@
-package designpattern.proxy.example2;
+package designpattern.proxy.example3;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import java.util.Random;
 public class HasQuarterState implements State {
     Random randomWinner = new Random(System.currentTimeMillis());
 
-    GumballMachine gumballMachine;
+    transient GumballMachine gumballMachine;
 
     static final String stateName = "hasQuarterState";
 

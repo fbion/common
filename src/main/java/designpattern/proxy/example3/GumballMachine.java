@@ -1,10 +1,13 @@
-package designpattern.proxy.example2;
+package designpattern.proxy.example3;
 
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Administrator on 2016/5/25.
  */
-public class GumballMachine {
+public class GumballMachine extends UnicastRemoteObject implements GumballMachineRemote {
     State soldOutState;
     State noQuarterState;
     State hasQuarterState;
@@ -15,7 +18,7 @@ public class GumballMachine {
     int count = 0;
     String location;
 
-    public GumballMachine(int count, String location) {
+    public GumballMachine(int count, String location) throws RemoteException{
         soldOutState = new SoldOutState(this);
         noQuarterState = new NoQuarterState(this);
         hasQuarterState = new HasQuarterState(this);
@@ -60,6 +63,7 @@ public class GumballMachine {
         }
     }
 
+    @Override
     public String getLocation() {
         return location;
     }
@@ -88,10 +92,12 @@ public class GumballMachine {
         return winnerState;
     }
 
+    @Override
     public State getState() {
         return state;
     }
 
+    @Override
     public int getCount() {
         return count;
     }

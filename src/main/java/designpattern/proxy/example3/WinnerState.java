@@ -1,10 +1,10 @@
-package designpattern.proxy.example2;
+package designpattern.proxy.example3;
 
 /**
  * Created by Administrator on 2016/5/25.
  */
 public class WinnerState implements State {
-    GumballMachine gumballMachine;
+    transient GumballMachine gumballMachine;
 
     static final String stateName = "winnerState";
 
