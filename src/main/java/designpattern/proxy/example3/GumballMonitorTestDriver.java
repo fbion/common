@@ -31,5 +31,9 @@ public class GumballMonitorTestDriver {
                 e.printStackTrace();
             }
         }
+
+        for (GumballMonitor gumballMonitor : monitor) {
+            gumballMonitor.report();
+        }
     }
 }
