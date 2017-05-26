@@ -23,7 +23,7 @@ public class GumballMachineRemoteTestDrive {
         try {
             count = Integer.parseInt(args[1]);
             gumballMachine = new GumballMachine(count, args[0]);
-            Naming.rebind("//" + args[0] + "/GumballMachine", gumballMachine);
+            Naming.rebind("//" + args[0] + "/gumballMachine", gumballMachine);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

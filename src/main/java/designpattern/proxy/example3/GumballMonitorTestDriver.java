@@ -14,9 +14,7 @@ import java.rmi.RemoteException;
 public class GumballMonitorTestDriver {
 
     public static void main(String[] args) {
-        String[] location = {"rmi://127.0.0.1/gumballMachine",
-                "rmi://localhost/gumballMachine",
-                "rmi://10.238.148.215/gumballMachine"};
+        String[] location = {"rmi://127.0.0.1/gumballMachine"};
         GumballMonitor[] monitor = new GumballMonitor[location.length];
         for (int i = 0; i < location.length; i++) {
             try {

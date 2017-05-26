@@ -1,6 +1,5 @@
 package designpattern.proxy.example3;
 
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
