@@ -6,7 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
- * 描述： <br>
+ * 描述： HeadFirst设计模式中的远程调用代理模式例子<br>
  * 创建时间: 2017/5/2317:58 <br>
  *
  * @author 周志辉

@@ -1,4 +1,4 @@
-package designpattern.proxy.example2;
+package designpattern.proxy.remoteproxy;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 
 /**
  * Created by Administrator on 2016/5/26.
+ * HeadFirst设计模式中的远程调用代理模式例子
  */
 public class MyRemoteClient {
     public void go() {
