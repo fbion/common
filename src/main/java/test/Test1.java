@@ -1,5 +1,6 @@
 package test;
 
+import java.io.UnsupportedEncodingException;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -22,14 +23,14 @@ public class Test1 {
     }
 
 
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, UnsupportedEncodingException {
 //        String s = "";
 //        s += null;
 //        System.out.println(s);
 //        String s1 = null;
 //        s1 += "";
 
-        sortByChineseCharacter();
+//        sortByChineseCharacter();
     }
 }
 
