@@ -2,6 +2,7 @@ package designpattern.composite.example1;
 
 /**
  * Created by Administrator on 2016/5/24.
+ * HeadFirst设计模式中的组合模式例子
  */
 public class MenuTestDrive {
     public static void main(String[] args) {

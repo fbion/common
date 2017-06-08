@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 /**
  * Created by Administrator on 2016/5/20.
+ * HeadFirst设计模式中的适配器模式例子
  */
 public class EnumerationIterator implements Iterator {
     Enumeration enumeration;

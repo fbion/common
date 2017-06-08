@@ -9,6 +9,7 @@ import designpattern.decorator.example1.seasoning.Whip;
 
 /**
  * Created by Administrator on 2016/5/6.
+ * HeadFirst设计模式中的装饰模式例子
  */
 //Starbuzz Coffee星巴克咖啡
 public class StarbuzzCoffee {

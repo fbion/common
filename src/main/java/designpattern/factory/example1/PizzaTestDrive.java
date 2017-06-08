@@ -7,6 +7,7 @@ import designpattern.factory.example1.store.PizzaStore;
 
 /**
  * Created by Administrator on 2016/5/7.
+ * HeadFirst设计模式中的工厂方法模式例子
  */
 public class PizzaTestDrive {
     public static void main(String[] args) {

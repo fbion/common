@@ -10,6 +10,7 @@ import designpattern.factory.example2.pizza.ingredient.impl.NYPizzaIngredientFac
 
 /**
  * Created by Administrator on 2016/5/9.
+ * HeadFirst设计模式中的抽象工厂模式例子
  */
 public class NYPizzaStore extends PizzaStore {
     @Override

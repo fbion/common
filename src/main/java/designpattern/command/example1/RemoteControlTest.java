@@ -1,11 +1,11 @@
-package designpattern;
+package designpattern.command.example1;
 
-import designpattern.command.example1.SimpleRemoteControl;
 import designpattern.command.example1.commandimpl.LightOnCommand;
 import designpattern.command.example1.equipment.Light;
 
 /**
  * Created by Administrator on 2016/5/18.
+ * HeadFirst设计模式中的命令模式例子
  */
 public class RemoteControlTest {
     public static void main(String[] args) {

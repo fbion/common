@@ -14,7 +14,7 @@ import designpattern.facade.equipment.impl.Tuner;
  * *********************************<br/>
  * <p>类名称：HomeTheaterTestDriver</p>
  * *********************************<br/>
- * <p>类描述：</p>
+ * <p>类描述：HeadFirst设计模式中的外观模式例子</p>
  * 创建人：zhouzhihui<br/>
  * 创建时间：2017/5/4 16:25<br/>
  * 修改人：周志辉<br/>

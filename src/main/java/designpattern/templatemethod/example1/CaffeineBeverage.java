@@ -2,6 +2,7 @@ package designpattern.templatemethod.example1;
 
 /**
  * Created by Administrator on 2016/5/23.
+ * HeadFirst设计模式中的模板模式例子
  */
 public abstract class CaffeineBeverage {
     final void prepareRecipe() {

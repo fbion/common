@@ -2,6 +2,7 @@ package designpattern.adapter.example1;
 
 /**
  * Created by Administrator on 2016/5/20.
+ * HeadFirst设计模式中的适配器模式例子
  */
 public class DuckTestDrive {
     public static void main(String[] args) {

@@ -8,6 +8,7 @@ import designpattern.factory.simplefactory.pizza.VeggiePizza;
 
 /**
  * Created by Administrator on 2016/5/7.
+ * HeadFirst设计模式中的简单工厂模式例子
  */
 public class SimplePizzaFactory {
     public Pizza createPizza(String type) {
