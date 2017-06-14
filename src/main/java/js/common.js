@@ -10,6 +10,7 @@ function fixNumber(value, toNumber) {
     return value;
 }
 
+//日期类格式化
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
         "M+": this.getMonth() + 1, //月份
@@ -32,6 +33,7 @@ function format(timestamp) {
     return timestamp?new Date(timestamp).Format("yyyy-MM-dd hh:mm:ss"):"";
 }
 
+//查询字符串转对象
 function convertQueryString() {
     var url = location.search.substr(1, location.search.length);
     if(url) {
