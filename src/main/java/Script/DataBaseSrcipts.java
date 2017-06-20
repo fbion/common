@@ -1,11 +1,16 @@
 package Script;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,30 +24,33 @@ public class DataBaseSrcipts {
 
     /**
      * 方法描述: 读取csv数据文件生成插入语句的sql文件<br>
-     * 
+     *
      * @author 周志辉
      * @param   fileName    csv文件名全路径
      * @param   desFileName 生成的sql文件名全路径
      */
     public static void csv2Sql(String fileName, String desFileName) {
-        try(BufferedReader br = new BufferedReader(new FileReader(fileName));
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "GBK"));
             BufferedWriter bw = new BufferedWriter(new FileWriter(desFileName))) {
             String line = null;
-            //状态码，0表示未读到表名，1表示已读到表名，2
+            List<String> temp = new ArrayList<>();
+            //状态码，0表示未读到表名，1表示已读到表名，2表示读完表名下一行，
             StringBuffer sb = new StringBuffer();
             int status = 0;
             Pattern p = Pattern.compile("([^\\[]?)\\[(.*)\\]");
             String tableName = null;
             Matcher m = null;
             while((line = br.readLine()) != null) {
-                if("".equals(line)) {
+                if(",".equals(line.replaceAll(",+", ","))) {
                     if(status != 0) {
                         status = 0;
-                        bw.write(sb.toString());
-                        bw.flush();
-                        sb.deleteCharAt(sb.capacity());
-                        sb.append(";");
-                        sb.delete(0, sb.capacity());
+                        createSql(sb, List2Array(temp));
+                        temp.clear();
+                        if(sb.indexOf("VALUES(") >= 0){
+                            bw.write(sb.toString());
+                            bw.flush();
+                        }
+                        sb.delete(0, sb.length());
                     }
                     continue;
                 }
@@ -50,19 +58,14 @@ public class DataBaseSrcipts {
                     m = p.matcher(line);
                     if(m.find()) {
                         tableName = m.group(2);
-                        sb.append("INSERT INTO `" + tableName + "` ");
+                        sb.append("INSERT INTO `" + tableName + "`");
                     }
                     status = 1;
                 } else if (status  == 1) {
-                    sb.append("(" + line + ") values");
                     status = 2;
-                } else if (status == 2) {
-                    String[] values = line.split(",");
-                    sb.append("(");
-                    for (String value : values) {
-                        sb.append("'" + value + "'");
-                    }
-                    sb.append("),");
+                    continue;
+                } else if (status  == 2) {
+                    temp.add(line);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -72,18 +75,62 @@ public class DataBaseSrcipts {
         }
     }
 
+    private static String[][] List2Array(List<String> list) {
+        String[][] data = new String[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            data[i] = mySplit(list.get((i)), ",");
+        }
+        return data;
+    }
+
+    private static void createSql(StringBuffer sb, String[][] data){
+        if(data.length > 0 && data[0].length > 3) {
+            sb.append("(");
+            for (int i = 0; i < data.length; i++) {
+                sb.append(data[i][0] + ",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(") VALUES");
+            for (int j = 3; j < data[0].length; j++) {
+                boolean flag = true;
+                for (int i = 0; i < data.length; i++) {
+                    if(!StringUtils.isBlank(data[i][j])) {
+                        flag = false;
+                    }
+                }
+                if(flag) {
+                    break;
+                }
+                sb.append("(");
+                for (int i = 0; i < data.length; i++) {
+                    sb.append(("".equals(data[i][j]) ?  null : "'" + data[i][j] + "'") + ",");
+                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.append("),");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(";\n\n\n");
+        }
+    }
+
+    private static String[] mySplit(String str, String separate) {
+        List<String> list = new ArrayList<>();
+        String temp = str;
+        int index = temp.indexOf(separate);
+        while(index >= 0) {
+            list.add(temp.substring(0, index));
+            temp = temp.substring(index + 1);
+            index = temp.indexOf(separate);
+        }
+        list.add(temp);
+        String[] result = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
-        Pattern p = Pattern.compile("([^\\[]?)\\[(.*)\\]");
-        String[] strs = {"账户信息表[T_AccountInformation]", "云资源种类表[T_CloudResourceType]", "云资源信息表[T_CloudResourceInformation]"};
-        String tableName = null;
-        Matcher m = null;
-        for (String str : strs) {
-            m = p.matcher(str);
-            if(m.find()) {
-                tableName = m.group(2);
-                System.out.println(tableName);
-            }
-        }
+        csv2Sql("D:\\work\\项目\\others\\众创平台\\data.csv", "D:\\work\\项目\\others\\众创平台\\insert.sql");
     }
 }
