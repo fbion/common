@@ -1,5 +1,8 @@
 package utils.file;
 
+import utils.file.interfaces.IStringOperator;
+import utils.file.interfaces.IStringOperator2;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

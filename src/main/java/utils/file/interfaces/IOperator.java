@@ -1,5 +1,6 @@
 package utils.file.interfaces;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -8,5 +9,5 @@ import java.io.IOException;
 
 @FunctionalInterface
 public interface IOperator {
-    boolean operator(String basePath, String relativePath, String... otherString) throws IOException;
+    void operator(File file) throws IOException;
 }
