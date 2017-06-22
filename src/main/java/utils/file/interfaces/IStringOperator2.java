@@ -1,4 +1,4 @@
-package utils.file;
+package utils.file.interfaces;
 
 /**
  * Created by Administrator on 2016/8/9.

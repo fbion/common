@@ -1,7 +1,5 @@
 package utils.file;
 
-import utils.file.strategy.IStringOperator;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
