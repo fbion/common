@@ -52,7 +52,7 @@ public class InsertInnerClass implements IOperator{
         if(!filter.accept(file)) {
             return;
         }
-        System.out.print(String.format("%50s", file.getAbsoluteFile()) + "\t\t");
+        System.out.print(String.format("%-60s", file.getAbsoluteFile()) + "\t\t");
         File desFile = new File(file.getAbsolutePath() + System.currentTimeMillis());
         try(BufferedReader br = new BufferedReader(new FileReader(file));
             BufferedWriter bw = new BufferedWriter(new FileWriter(desFile))) {

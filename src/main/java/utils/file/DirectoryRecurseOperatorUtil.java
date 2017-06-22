@@ -70,6 +70,6 @@ public class DirectoryRecurseOperatorUtil {
     static int count = 0;
     public static void main(String[] args) throws IOException {
 //        recurseDirectory("F:\\idea-projects\\qizhi-cloud\\app", "", (file) -> true, new FindString(), ".copy(");
-        recurseDirectory("D:\\test\\work", new InsertInnerClass("Inner Valid Validator Entity".split(" ")));
+        recurseDirectory("D:\\zzh\\codes\\common\\src\\main\\java\\tttt", new InsertInnerClass("Inner Valid Validator Entity".split(" ")));
     }
 }
