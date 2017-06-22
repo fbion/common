@@ -4,11 +4,13 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -129,8 +131,48 @@ public class DataBaseSrcipts {
         }
         return result;
     }
+    public static void dealWithDumpedSqlFile(String fileName) {
+        dealWithDumpedSqlFile(fileName, "UTF-8");
+    }
+
+    public static void dealWithDumpedSqlFile(String filePath, String charset) {
+        String desFilePath = filePath + System.currentTimeMillis();
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(desFilePath))) {
+            String line = null;
+            int flag = 0;
+            StringBuffer sb = new StringBuffer();
+            String temp = null;
+            while((line = br.readLine()) != null) {
+                temp = line.trim().toUpperCase();
+                if(flag == 0) {
+                    if(temp.startsWith("DROP")) {
+                        flag = 1;
+                    } else {
+                        sb.append(line + "\n");
+                    }
+                } else if(temp.endsWith(";")) {
+                    flag = (flag + 1) % 2;
+                }
+            }
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File srcFile = new File(filePath);
+        srcFile.delete();
+        File desFile = new File(desFilePath);
+        desFile.renameTo(srcFile);
+    }
 
     public static void main(String[] args) {
-        csv2Sql("D:\\work\\项目\\others\\众创平台\\data.csv", "D:\\work\\项目\\others\\众创平台\\insert.sql");
+//        csv2Sql("D:\\work\\项目\\others\\众创平台\\data.csv", "D:\\work\\项目\\others\\众创平台\\insert.sql");
+
+        dealWithDumpedSqlFile("D:\\work\\项目\\others\\众创平台\\ZCPDev.sql");
     }
 }

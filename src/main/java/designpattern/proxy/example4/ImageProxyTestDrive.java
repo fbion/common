@@ -3,6 +3,7 @@ package designpattern.proxy.example4;
 import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
@@ -33,30 +34,42 @@ public class ImageProxyTestDrive {
     public ImageProxyTestDrive() throws Exception {
         cds.put("Ambient: Music for Airport", "http://images.amazon.com/images/P/");
         cds.put("Buddha Bar", "http://images.amazon.com/images/P/B00009XBYK.01.LZZZZZZZ.jpg");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
-        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
+//        cds.put("", "");
 
         URL initialURL = new URL((String) cds.get("Buddha Bar"));
         menuBar = new JMenuBar();
         menu = new JMenu("Favorite CDs");
         menuBar.add(menu);
         jFrame.setJMenuBar(menuBar);
+        for (Enumeration<String> e =cds.keys(); e.hasMoreElements();) {
+            String name = e.nextElement();
+            JMenuItem menuItem = new JMenuItem(name);
+            menu.add(menuItem);
+            menuItem.addActionListener((event) -> {
+                    imageComponent.setIcon(new ImageProxy(getCDUrl(event.getActionCommand())));
+                    jFrame.repaint();
+                }
+            );
+        }
 
-        Icon icon = new ImageProxy(new URL("http://baidu.com/"));
-//        Icon icon = new ImageProxy(initialURL);
-//        imageComponent = new ImageComponent(icon);
-//        frame.getContentPane().add(imageComponent);
+        Icon icon = new ImageProxy(initialURL);
+        imageComponent = new ImageComponent(icon);
+        jFrame.getContentPane().add(imageComponent);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setSize(800, 600);
+        jFrame.setVisible(true);
     }
 
     URL getCDUrl(String name) {

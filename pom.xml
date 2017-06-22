@@ -24,6 +24,13 @@
             <version>2.1</version>
         </dependency>
 
+        <!--apache的ftp工具包-->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
         <!--redis操作工具-->
         <dependency>
             <groupId>org.yatech.jedis</groupId>

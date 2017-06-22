@@ -34,10 +34,18 @@ public class ZipUtils {
      * @param path 文件目录
      */
     public static void unZip(String path, String desDirectory) {
+        unZip(path, desDirectory, "UTF-8");
+    }
+
+    /**
+     * 解压Zip文件
+     * @param path 文件目录
+     */
+    public static void unZip(String path, String desDirectory, String charset) {
         int count = -1;
         File file = null;
         new File(desDirectory).mkdir(); //创建保存目录
-        try(ZipFile zipFile = new ZipFile(path, Charset.forName("gbk"))) {
+        try(ZipFile zipFile = new ZipFile(path, Charset.forName(charset))) {
             Enumeration<?> entries = zipFile.entries();
             while(entries.hasMoreElements()) {
                 byte buf[] = new byte[buffer];
@@ -126,5 +134,6 @@ public class ZipUtils {
 //        unZip(new FileInputStream("D:\\D\\after91.zip"), "D:\\D");
 
         unZip("D:\\D\\after91.zip", "D:\\D");
+
     }
 }
