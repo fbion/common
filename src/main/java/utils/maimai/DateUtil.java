@@ -1,6 +1,9 @@
 package utils.maimai;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,15 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.log4j.Logger;
-
-
-
 
 public class DateUtil
 {
 
-	private static Logger log = Logger.getLogger(DateUtil.class);
+	private static Logger log = LoggerFactory.getLogger(DateUtil.class);
 	
 	public static Date stringToDate(String strDate) throws ParseException
 	{
@@ -328,7 +327,7 @@ public class DateUtil
 //		log.info(i);
 //		log.info(date.getTime());
 //		timeToTimestamp("2015-08-27 11:45:55");
-		log.info(timeToTimestamp("2015-08-22 16:30:54"));
+		log.info(timeToTimestamp("2015-08-22 16:30:54") + "");
 		timeToTimestamp("2015-08-22 16:30:54");
 	}
 	

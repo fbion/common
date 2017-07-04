@@ -63,7 +63,7 @@ public abstract class StringUtil
 	
 	/**
 	    * 16进制转换为二进制
-	    * @param hex
+	    * @param hexString
 	    * @return
 	    */
 	public static String hexString2binaryString(String hexString)  

@@ -1,14 +1,15 @@
 package utils.maimai;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Map.Entry;
-
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import java.util.Properties;
 
 /**
  * 解析XML文件
@@ -32,9 +33,9 @@ public class ContextXmlUtil {
 	 * 
 	 */
 	private ContextXmlUtil() {
-		org.jdom.input.SAXBuilder sb = new SAXBuilder();
-		org.jdom.Document doc = null;
-		org.jdom.Element root = null;
+		SAXBuilder sb = new SAXBuilder();
+		Document doc = null;
+		Element root = null;
 
 		String file = "config.xml";
 		

@@ -1,6 +1,8 @@
 package utils.maimai;
 
 
+import utils.security.Base64;
+
 /**
  * byte字节转换为其他编码方式.
  * <pre>
