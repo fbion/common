@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class InsertInnerClass implements IOperator{
 
 
     @Override
-    public void operator(File file) throws IOException {
+    public void operator(File file) {
         //过滤非java文件
         if(!filter.accept(file)) {
             return;
@@ -69,7 +70,7 @@ public class InsertInnerClass implements IOperator{
                 line = readStack.pop();
                 writeStatck.push(line);
                 if(!flag && line.indexOf("}") >= 0) {
-                    writeStatck.push("private class " + classNames.get(random.nextInt(classNames.size())) + "{}");
+                    writeStatck.push("\tclass " + classNames.get(random.nextInt(classNames.size())) + "{}");
                     flag = true;
                     System.out.print("success" + "\t\t");
                 }
@@ -79,6 +80,10 @@ public class InsertInnerClass implements IOperator{
                 bw.write(line + "\n");
                 bw.flush();
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.print(file.delete() + "\t\t");
         System.out.println(desFile.renameTo(file));
