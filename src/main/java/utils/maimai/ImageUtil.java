@@ -1,10 +1,23 @@
 package utils.maimai;
 
-import java.awt.AlphaComposite;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.JPEGTranscoder;
+import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Decoder;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,27 +32,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.JPEGTranscoder;
-import org.apache.batik.transcoder.image.PNGTranscoder;
-import org.apache.log4j.Logger;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
-import com.yunsign.exception.ServiceException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import sun.misc.BASE64Decoder;
-
 public class ImageUtil {
-	private static Logger log = Logger.getLogger(ImageUtil.class);
+	private static Logger log = LoggerFactory.getLogger(ImageUtil.class);
 	
 	private static ImageUtil instance;
 	 
@@ -131,7 +125,7 @@ public class ImageUtil {
 	 * @param x
 	 * @param y
 	 */
-	public static void mergeImg(String filesrc, String logosrc, String outsrc,int x, int y) throws ServiceException
+	public static void mergeImg(String filesrc, String logosrc, String outsrc,int x, int y) throws Exception
 	{
 		log.info("filesrc="+filesrc+",logosrc="+logosrc+",outsrc="+outsrc+",x="+x+",y="+y);
 		try {
@@ -174,12 +168,12 @@ public class ImageUtil {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException("001","图片合成失败","");
+			throw new Exception("图片合成失败");
 		}
 	}
 	
 	public static void mergeImg(CustomImages imgobject[], String outsrc)
-            throws ServiceException {
+            throws Exception {
         try {
             File imgfile[] = new File[imgobject.length];
             BufferedImage imgbuffered[] = new BufferedImage[imgobject.length];
@@ -202,7 +196,7 @@ public class ImageUtil {
             System.out.println("恭喜！！图片输出完毕！");
         } catch (Exception e) {
         	e.printStackTrace();
-            throw new ServiceException("6590","png合并失败","");
+            throw new Exception("png合并失败");
         }
     }
 	
@@ -216,7 +210,7 @@ public class ImageUtil {
 	 * @param y
 	 *            位置
 	 */
-	public static void composePic(String filesrc, String logosrc, String outsrc,int x, int y) throws ServiceException {
+	public static void composePic(String filesrc, String logosrc, String outsrc,int x, int y) throws Exception {
 		log.info("filesrc="+filesrc+",logosrc="+logosrc+",outsrc="+outsrc+",x="+x+",y="+y);
 		try {
 			File bgfile = new File(filesrc);
@@ -241,11 +235,11 @@ public class ImageUtil {
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException("002","图片合成失败","");
+			throw new Exception("图片合成失败");
 		}
 	}
 
-	public static void changeSvgToJpg(String imgStr, String imgPath,String logSvgPath) throws ServiceException{
+	public static void changeSvgToJpg(String imgStr, String imgPath,String logSvgPath) throws Exception{
 		log.info("imgPath="+imgPath);
 		OutputStream out = null;
 		OutputStream ostream = null;
@@ -293,19 +287,19 @@ public class ImageUtil {
 			fileSvg.deleteOnExit();
 		} catch (Exception e) {			
 			e.printStackTrace();
-			throw new ServiceException("2000","SVG转png失败","");
+			throw new Exception("SVG转png失败");
 		} finally {
 			try {
 				ostream.flush();
 				// 关闭输入流
 				ostream.close();
 			} catch (IOException e) {
-				throw new ServiceException("2000","SVG转png时关闭流失败","");
+				throw new Exception("SVG转png时关闭流失败");
 			}
 		}
 	}	
 
-    public static void composeImg(String imageData,String serialNum,String attrName) throws ServiceException
+    public static void composeImg(String imageData,String serialNum,String attrName) throws Exception
 	{
 		Map dataMap = JSON.parseObject(imageData, Map.class);
 		JSONObject json = (JSONObject) dataMap.get("data");
@@ -388,9 +382,9 @@ public class ImageUtil {
 	 * 获取图片的宽和高
 	 * @param src
 	 * @return
-	 * @throws ServiceException
+	 * @throws Exception
 	 */
-	public static Map<String,Integer> getImgWidthAndHeight(String src) throws ServiceException
+	public static Map<String,Integer> getImgWidthAndHeight(String src) throws Exception
 	{
 		Map<String,Integer> map = new HashMap<String, Integer>();
 		InputStream is = null;
@@ -405,7 +399,7 @@ public class ImageUtil {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException(ConstantUtil.RETURN_SEAL_NOT_EXIST[0],ConstantUtil.RETURN_SEAL_NOT_EXIST[1],ConstantUtil.RETURN_SEAL_NOT_EXIST[2]);
+			throw new Exception(ConstantUtil.RETURN_SEAL_NOT_EXIST[1]);
 		}
 		finally{
 			if(null != is)
@@ -414,7 +408,7 @@ public class ImageUtil {
 					is.close();//关闭Stream
 				} catch (IOException e) {									
 					e.printStackTrace();
-					throw new ServiceException(ConstantUtil.FILE_READ_EXCEPTION[0],ConstantUtil.FILE_READ_EXCEPTION[1],ConstantUtil.FILE_READ_EXCEPTION[2]);
+					throw new Exception(ConstantUtil.FILE_READ_EXCEPTION[1]);
 				} 
 			}
 		}
@@ -432,7 +426,7 @@ public class ImageUtil {
 	 * 传文字时  type=font fontsize=自定义字体大小(不传的话为10) rotation=字体的旋转度(不传值为0,水平) x=字体的x坐标 y=字体的y坐标 page=图片所在页码
 	 */
 	public static void addWaterMark(Map<String, String> para_map)
-			throws ServiceException {
+			throws Exception {
 		try {
 			float f = 1.5f;//坐标转换系数
 			log.info("addWaterMark的人参为:"+para_map.toString());
@@ -466,7 +460,7 @@ public class ImageUtil {
 //			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException("exception", "水印合成异常", "");
+			throw new Exception("水印合成异常");
 		}
 	}
 	

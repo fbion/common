@@ -1,5 +1,8 @@
 package utils.maimai;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,9 +10,6 @@ import java.io.InputStream;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
-
-import org.apache.log4j.Logger;
-
 
 
 public class IndividualCertChain{
@@ -19,7 +19,7 @@ public class IndividualCertChain{
 	 * @param filename
 	 * @return
 	 */
-	private static  Logger log=Logger.getLogger(IndividualCertChain.class);
+	private static Logger log =  LoggerFactory.getLogger(IndividualCertChain.class);
 	public static Certificate getCfcaCert(String filename){
 		log.info("filename:"+filename);
 		File cfcafile=new File(filename);

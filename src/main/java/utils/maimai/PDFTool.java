@@ -1,5 +1,12 @@
 package utils.maimai;
 
+import com.aspose.words.Document;
+import com.aspose.words.License;
+import com.aspose.words.SaveFormat;
+import com.yunsign.exception.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,17 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
-import com.aspose.words.Document;
-import com.aspose.words.License;
-import com.aspose.words.SaveFormat;
-import com.yunsign.exception.ServiceException;
-
 
 public class PDFTool{
 	private final static String EXCHANGE_NAME = "ex_log";  
-	private static Logger log = Logger.getLogger(PDFTool.class);
+	private static Logger log = LoggerFactory.getLogger(PDFTool.class);
 	/**
 	 * 
 	 * @param htmlName 文件

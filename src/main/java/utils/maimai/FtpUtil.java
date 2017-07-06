@@ -1,20 +1,21 @@
 package utils.maimai;
 
-import java.io.BufferedInputStream;  
-import java.io.BufferedOutputStream;  
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileNotFoundException;  
-import java.io.FileOutputStream;  
-import java.io.IOException;  
-import java.util.TimeZone;  
-import org.apache.commons.net.ftp.FTPClient;  
-import org.apache.commons.net.ftp.FTPClientConfig;  
-import org.apache.commons.net.ftp.FTPFile;  
-import org.apache.commons.net.ftp.FTPReply;  
-  
-import org.apache.log4j.Logger;  
-  
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPClientConfig;
+import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.TimeZone;
+
 public class FtpUtil {  
     private FTPClient ftpClient;  
     private String strIp;  
@@ -22,7 +23,7 @@ public class FtpUtil {
     private String user;  
     private String password;  
   
-    private static Logger logger = Logger.getLogger(FtpUtil.class.getName());  
+    private static Logger logger = LoggerFactory.getLogger(FtpUtil.class.getName());
   
     /* * 
      * Ftp构造函数 
@@ -245,7 +246,7 @@ public class FtpUtil {
   
     /*** 
      * @下载文件夹 
-     * @param localDirectoryPath本地地址 
+     * @param localDirectoryPath    本地地址
      * @param remoteDirectory 远程文件夹 
      * */  
     public boolean downLoadDirectory(String localDirectoryPath,String remoteDirectory) {  
