@@ -1,16 +1,21 @@
 package utils.file;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 项目名称：zzh<br/>
@@ -28,6 +33,8 @@ import java.util.zip.ZipInputStream;
  */
 public class ZipUtils {
     private static final int buffer = 2048;
+
+    static final int BUFFER = 8192;
 
     /**
      * 解压Zip文件
@@ -130,10 +137,117 @@ public class ZipUtils {
     }
 
 
+    /**
+     * 压缩为jar包，指定的目录不打入jar包，只把目录里的文件打进jar包
+     * @param srcPathName 被压缩的文件/文件夹
+     */
+    public static void jar(String srcPathName, String zipFilePath) {
+        File file = new File(srcPathName);
+        if (!file.exists()){
+            throw new RuntimeException(srcPathName + "不存在！");
+        }
+        if (!file.isDirectory()){
+            throw new RuntimeException(srcPathName + "不是目录！");
+        }
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(zipFilePath);
+            CheckedOutputStream cos = new CheckedOutputStream(fileOutputStream,new CRC32());
+            ZipOutputStream out = new ZipOutputStream(cos);
+            String basedir = "";
+            for (File file1 : file.listFiles()) {
+                compressByType(file1, out, basedir);
+            }
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 执行压缩操作
+     * @param srcPathName 被压缩的文件/文件夹
+     */
+    public static void zip(String srcPathName, String zipFilePath) {
+        File file = new File(srcPathName);
+        if (!file.exists()){
+            throw new RuntimeException(srcPathName + "不存在！");
+        }
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(zipFilePath);
+            CheckedOutputStream cos = new CheckedOutputStream(fileOutputStream,new CRC32());
+            ZipOutputStream out = new ZipOutputStream(cos);
+            String basedir = "";
+            compressByType(file, out, basedir);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 判断是目录还是文件，根据类型（文件/文件夹）执行不同的压缩方法
+     * @param file
+     * @param out
+     * @param basedir
+     */
+    private static void compressByType(File file, ZipOutputStream out, String basedir) {
+        /* 判断是目录还是文件 */
+        if (file.isDirectory()) {
+            compressDirectory(file, out, basedir);
+        } else {
+            compressFile(file, out, basedir);
+        }
+    }
+
+    /**
+     * 压缩一个目录
+     * @param dir
+     * @param out
+     * @param basedir
+     */
+    private static void compressDirectory(File dir, ZipOutputStream out, String basedir) {
+        if (!dir.exists()){
+            return;
+        }
+
+        File[] files = dir.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            /* 递归 */
+            compressByType(files[i], out, basedir + dir.getName() + "/");
+        }
+    }
+
+    /**
+     * 压缩一个文件
+     * @param file
+     * @param out
+     * @param basedir
+     */
+    private static void compressFile(File file, ZipOutputStream out, String basedir) {
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            ZipEntry entry = new ZipEntry(basedir + file.getName());
+            out.putNextEntry(entry);
+            int count;
+            byte data[] = new byte[BUFFER];
+            while ((count = bis.read(data, 0, BUFFER)) != -1) {
+                out.write(data, 0, count);
+            }
+            bis.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
-//        unZip(new FileInputStream("D:\\D\\after91.zip"), "D:\\D");
+//        jar("D:\\test\\jar\\Info", "D:\\test\\jar\\Info.jar");
 
-        unZip("D:\\D\\after91.zip", "D:\\D");
-
+//        unZip("D:\\test\\projectjar\\smartregulation-datasource-0.0.1-SNAPSHOT.jar", "D:\\test\\projectjar\\smartregulation-datasource-0.0.1-SNAPSHOT");
+//        jar("D:\\test\\projectjar\\smartregulation-datasource-0.0.1-SNAPSHOT", "D:\\test\\projectjar\\smartregulation-datasource-0.0.1-SNAPSHOT.jar");
     }
 }

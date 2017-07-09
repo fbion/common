@@ -22,7 +22,7 @@ public class DirectoryRecurseOperatorUtil {
      * @return
      * @throw 
      */
-    public static void recurseDirectory(String filePath, IOperator operator) throws IOException {
+    public static void recurseDirectory(String filePath, IOperator operator) {
         File file = new File(filePath);
         if(!file.exists()) {
             System.exit(1);

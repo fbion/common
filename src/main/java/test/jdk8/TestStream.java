@@ -68,6 +68,10 @@ public class TestStream {
 //        System.out.println(list);
 //        List<Integer> list3 = list.stream().filter((x) -> x % 3 == 0).collect(Collectors.toList());
 //        System.out.println(list3);
+
+        List<String> list1 = new ArrayList<>();
+        list1.addAll(Arrays.asList("1234567890".split("")));
+        System.out.println(list1.stream().filter(t -> Integer.parseInt(t) < 5).collect(Collectors.toList()));
     }
 
     public static List<Integer> createList(int size) {

@@ -48,3 +48,62 @@ function convertQueryString() {
     }
     return result;
 }
+
+//深度克隆对象
+function cloneFun(obj){
+    if(!obj||"object" != typeof obj){
+        return null;
+    }
+    var result = (obj instanceof Array)?[]:{};
+    for(var i in obj){
+        result[i] = ("object" != typeof obj[i])?obj[i]:cloneFun(obj[i]);
+    }
+    return result;
+}
+
+//防止事件冒泡
+function stopBubble(e)
+{
+    if (e && e.stopPropagation)
+        e.stopPropagation()
+    else
+        window.event.cancelBubble=true
+}
+
+//获取字符串长度,汉字按两个算
+function getLength(str) {
+    var len = 0;
+    for (var j = 0;j < str.length; j++) {
+        if (/[\u4e00-\u9fa5]/.test(str.charAt(j))) {
+            len= len +2;
+        }else {
+            len = len + 1;
+        }
+    }
+    return len;
+}
+
+/*
+ 函数：计算两个日期之间的天数差值
+ */
+function dateDiff(date1, date2) {
+    var msCount = 24 * 60 * 60 * 1000;
+    //alert(Date.parse(date1));
+    //alert(Date.parse(date2));
+    var diff =  Date.parse(date1) - Date.parse(date2);
+    return Math.floor(diff / msCount);
+};
+
+//取两位小数
+function fixTo2(val){
+    if(!/^\d+(\.\d{1,2})?$/.test(val)){
+        return val.toFixed(2);
+    }
+    return val;
+}
+
+function log(msg){
+    if(window.console && console.log){
+        console.log(msg);
+    }
+}
