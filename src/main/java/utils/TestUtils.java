@@ -10,94 +10,86 @@ import java.io.IOException;
  */
 @SuppressWarnings("deprecation")
 //@Deprecated
-public class TestUtils
-{
+public class TestUtils {
 
-    private TestUtils()
-    {
+    private TestUtils() {
     }
 
-    /**
-     * 记录一条字符串到指定文件末尾处
-     * @param src 待记录字符串
-     * @param desFileName 目标文件名
-     */
-    @Deprecated
-    public static void recordInFile(String src, String desFileName)
-    {
-        recordInFile(new String[] { src }, desFileName, true);
-    }
 
     /**
      * 记录一条字符串到指定文件末尾处
-     * @param src 待记录字符串
+     *
+     * @param src         待记录字符串
      * @param desFileName 目标文件名
      */
     @Deprecated
-    public static void recordInFile(String src, String desFileName, boolean isAppend)
-    {
-        recordInFile(new String[] { src }, desFileName, isAppend);
+    public static void recordInFile(String src, String desFileName) {
+        recordInFile(new String[]{src}, desFileName, true);
     }
+
+
+    /**
+     * 记录一条字符串到指定文件末尾处
+     *
+     * @param src         待记录字符串
+     * @param desFileName 目标文件名
+     */
+    @Deprecated
+    public static void recordInFile(String src, String desFileName, boolean isAppend) {
+        recordInFile(new String[]{src}, desFileName, isAppend);
+    }
+
 
     /**
      * 记录一个字符串数组到指定文件末尾处
-     * @param src 待记录字符串
+     *
+     * @param src         待记录字符串
      * @param desFileName 目标文件名
      */
     @Deprecated
-    public static void recordInFile(String[] src, String desFileName)
-    {
+    public static void recordInFile(String[] src, String desFileName) {
         recordInFile(src, desFileName, true);
     }
 
+
     /**
      * 记录一个字符串数组到指定文件末尾处
-     * @param src 待记录字符串
+     *
+     * @param src         待记录字符串
      * @param desFileName 目标文件名
      */
     @Deprecated
-    public static void recordInFile(String[] src, String desFileName, boolean isAppend)
-    {
+    public static void recordInFile(String[] src, String desFileName, boolean isAppend) {
         File file = new File(desFileName);
-        if (file.isDirectory())
-        {
+        if (file.isDirectory()) {
             return;
         }
         BufferedWriter bw = null;
-        try
-        {
-            if ((!file.exists()) && (!file.createNewFile()))
-            {
+        try {
+            if ((!file.exists()) && (!file.createNewFile())) {
                 System.out.println("Failed to create new File" + desFileName);
                 return;
             }
             bw = new BufferedWriter(new FileWriter(file, isAppend));
-            for (String s : src)
-            {
+            for (String s : src) {
                 bw.write(s + "\r\n");
             }
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally
-        {
-            if (bw != null)
-            {
-                try
-                {
+        } finally {
+            if (bw != null) {
+                try {
                     bw.close();
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     public static void main(String[] args) throws InterruptedException {
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             recordInFile(i + "", "test.txt");
             Thread.sleep(2000);
         }
