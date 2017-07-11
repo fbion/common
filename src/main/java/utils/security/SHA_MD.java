@@ -1,7 +1,5 @@
 package utils.security;
 
-import utils.maimai.ByteToOther;
-
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
