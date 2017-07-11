@@ -119,8 +119,8 @@ public class KickMInN
 
     public static void main(String[] args)
     {
-        System.out.println(kickMinN(6, 5));
-        System.out.println(kickMinNByArray(6, 5));
-        test();
+        System.out.println(kickMinN(30, 9));
+        System.out.println(kickMinNByArray(30, 9));
+//        test();
     }
 }

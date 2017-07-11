@@ -1,14 +1,13 @@
-package utils.maimai;
+package utils.security;
 
-import java.security.MessageDigest;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import java.security.MessageDigest;
 
 /**
  * 基础加密组件
