@@ -42,3 +42,14 @@ SELECT count(1) FROM data_t WHERE date<'2017-01-23 19:45:49' AND date>'2017-01-1
 #28579852
 #1068
 #1102934
+
+
+#查表大小
+use information_schema;
+select (data_length+index_length)/1024/1024  from tables where table_schema='data' and table_name = 'data'
+union select (data_length+index_length)/1024/1024  from tables where table_schema='data' and table_name = 'data_t'
+union select (data_length+index_length)/1024/1024  from tables where table_schema='data' and table_name = 'data_total';
+#716.65625000
+#404.89062500
+#1188.75000000
+
