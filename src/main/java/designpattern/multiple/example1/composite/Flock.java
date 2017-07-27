@@ -24,9 +24,4 @@ public class Flock implements Quackable {
             quacker.quack();
         }
     }
-
-
-    public static void main(String[] args) {
-        System.out.println("ODI3Y2NiMGVlYThhNzA2YzRjMzRhMTY4OTFmODRlN2I=".length());
-    }
 }

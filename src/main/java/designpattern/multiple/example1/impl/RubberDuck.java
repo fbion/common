@@ -8,7 +8,7 @@ import designpattern.multiple.example1.Quackable;
  *
  * @author 周志辉
  */
-public class RubberDuck implements Quackable {
+public class RubberDuck extends BaseDuck  implements Quackable {
 
     @Override
     public void quack() {

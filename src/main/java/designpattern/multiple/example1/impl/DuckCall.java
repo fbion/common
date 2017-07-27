@@ -8,7 +8,7 @@ import designpattern.multiple.example1.Quackable;
  *
  * @author 周志辉
  */
-public class DuckCall implements Quackable {
+public class DuckCall extends BaseDuck implements Quackable {
 
     @Override
     public void quack() {
