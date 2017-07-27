@@ -53,3 +53,18 @@ union select (data_length+index_length)/1024/1024  from tables where table_schem
 #404.89062500
 #1188.75000000
 
+
+
+DELETE from data WHERE price < 100;
+DELETE from data_t WHERE price < 100;
+DELETE from data_total WHERE price < 100;
+CREATE TABLE backup LIKE data;
+INSERT INTO backup(date,price) SELECT date,price FROM data;
+
+
+INSERT INTO data(date, price)
+SELECT n.date,n.price FROM data_n n WHERE n.date not exists (SELECT date FROM data);
+
+
+SELECT count(*) from `data` a WHERE NOT EXISTS(SELECT * FROM data_n n WHERE n.date=a.date) AND  NOT EXISTS(SELECT *
+FROM data_p p WHERE p.date=a.date);
