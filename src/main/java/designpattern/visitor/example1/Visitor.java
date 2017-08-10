@@ -14,7 +14,5 @@ public abstract class Visitor {
     }
 
 
-    public abstract void visitor(MedicineA a);
-
-    public abstract void visitor(MedicineB b);
+    public abstract void visitor(Medicine m);
 }
