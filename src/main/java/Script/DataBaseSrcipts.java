@@ -56,6 +56,7 @@ public class DataBaseSrcipts {
                     }
                     continue;
                 }
+                //状态0表示在匹配表名
                 if(status == 0) {
                     m = p.matcher(line);
                     if(m.find()) {
@@ -171,8 +172,7 @@ public class DataBaseSrcipts {
     }
 
     public static void main(String[] args) {
-//        csv2Sql("D:\\work\\项目\\others\\众创平台\\data.csv", "D:\\work\\项目\\others\\众创平台\\insert.sql");
-
-        dealWithDumpedSqlFile("D:\\work\\项目\\others\\众创平台\\ZCPDev.sql");
+        csv2Sql("D:\\work\\项目\\CTS\\menus.csv", "D:\\work\\项目\\CTS\\insert.sql");
+//        dealWithDumpedSqlFile("D:\\work\\项目\\others\\众创平台\\ZCPDev.sql");
     }
 }
