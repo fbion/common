@@ -9,7 +9,9 @@ import java.util.List;
  * Created by Administrator on 2016/6/16.
  */
 public class Classic {
-
+    /**
+     * 九九乘法表
+     */
     public static void printMultiplyTable() {
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j <= i; j++) {
@@ -101,15 +103,24 @@ public class Classic {
         return new Date(newTime);
     }
 
-    public static void main(String[] args) {
-//        int[] array ={123, 12345, 1234567};
-//        for (int i : array) {
-//            System.out.print(String.format("%10s", i + "\t\t\t"));
-//            System.out.println(calculateSum(i));
-//        }
+    /**
+     * 九九乘法表
+     */
+    public static void printMultiplyTableWithoutLoop (int i, int j) {
+        System.out.print(j + "*" + i + "=" + i*j + "\t");
+        if(i == j) {
+            if(j == 9) {
+                return;
+            }
+            System.out.println();
+            printMultiplyTableWithoutLoop (1, j + 1);
+        } else {
+            printMultiplyTableWithoutLoop (i + 1, j);
+        }
+    }
 
-        Calendar c1 = Calendar.getInstance();
-        System.out.println(new Date(c1.getTimeInMillis()));
-        System.out.println(fixToZero(new Date(c1.getTimeInMillis())));
+    public static void main(String[] args) {
+//        printMultiplyTable();
+        printMultiplyTableWithoutLoop(1, 1);
     }
 }
