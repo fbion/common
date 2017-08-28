@@ -2,7 +2,6 @@ package utils.file;
 
 
 import utils.file.interfaces.IOperator;
-import utils.file.interfaces.impl.InsertInnerClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,6 +69,11 @@ public class DirectoryRecurseOperatorUtil {
     static int count = 0;
     public static void main(String[] args) throws IOException {
 //        recurseDirectory("F:\\idea-projects\\qizhi-cloud\\app", "", (file) -> true, new FindString(), ".copy(");
-        recurseDirectory("D:\\zzh\\codes\\common\\src\\main\\java\\tttt", new InsertInnerClass("Inner Valid Validator Entity".split(" ")));
+//        recurseDirectory("D:\\zzh\\codes\\common\\src\\main\\java\\tttt", new InsertInnerClass("Inner Valid Validator Entity".split(" ")));
+        recurseDirectory("D:\\IDEA\\SINOPEC-CTS\\CTS\\cts\\src\\main\\java", (f) -> {
+            if(f.getName().indexOf("Controller.java") >= 0) {
+                System.out.println(f.getName());
+            }
+        });
     }
 }
