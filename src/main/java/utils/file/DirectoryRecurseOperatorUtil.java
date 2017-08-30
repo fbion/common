@@ -81,9 +81,6 @@ public class DirectoryRecurseOperatorUtil {
         recurseDirectory("D:\\IDEA\\SINOPEC-CTS\\CTS\\cts\\src\\main\\java", (f) -> {
             if(f.getName().indexOf("Controller.java") >= 0 || f.getName().indexOf("Controllor.java") >= 0) {
                 System.out.print(f.getName());
-                if("JmxControllor.java".equals(f.getName())) {
-                    System.out.println();
-                }
                 try(BufferedReader br = new BufferedReader(new FileReader(f))) {
                     String line  = null;
                     String preFix = "";

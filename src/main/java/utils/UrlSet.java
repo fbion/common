@@ -21,7 +21,10 @@ public class UrlSet extends HashSet {
             String line  = null;
             while((line = br.readLine()) != null) {
                 if(!set.add(line.replaceAll("^/+", "").replaceAll("/+$", "").replaceAll("/+", "/"))) {
-                    System.out.println(line);
+                    if(!"".equals(line) && !"project/createIssue".equals(line)) {
+                        System.out.println(line);
+                        System.out.println();
+                    }
                 };
             }
         } catch (FileNotFoundException e) {
@@ -30,8 +33,6 @@ public class UrlSet extends HashSet {
             e.printStackTrace();
         }
 
-        System.out.println();
-        System.out.println();
         int count = 0;
         try(BufferedReader br = new BufferedReader(new FileReader("D:\\work\\项目\\CTS\\Test\\total.csv"))) {
             String line  = null;
