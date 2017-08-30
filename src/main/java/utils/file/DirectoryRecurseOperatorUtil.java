@@ -3,7 +3,10 @@ package utils.file;
 
 import utils.file.interfaces.IOperator;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -66,13 +69,44 @@ public class DirectoryRecurseOperatorUtil {
         return true;
     }
 
-    static int count = 0;
+    public static String test(String str) {
+
+        return null;
+    }
+
     public static void main(String[] args) throws IOException {
 //        recurseDirectory("F:\\idea-projects\\qizhi-cloud\\app", "", (file) -> true, new FindString(), ".copy(");
 //        recurseDirectory("D:\\zzh\\codes\\common\\src\\main\\java\\tttt", new InsertInnerClass("Inner Valid Validator Entity".split(" ")));
+
         recurseDirectory("D:\\IDEA\\SINOPEC-CTS\\CTS\\cts\\src\\main\\java", (f) -> {
-            if(f.getName().indexOf("Controller.java") >= 0) {
-                System.out.println(f.getName());
+            if(f.getName().indexOf("Controller.java") >= 0 || f.getName().indexOf("Controllor.java") >= 0) {
+                System.out.print(f.getName());
+                if("JmxControllor.java".equals(f.getName())) {
+                    System.out.println();
+                }
+                try(BufferedReader br = new BufferedReader(new FileReader(f))) {
+                    String line  = null;
+                    String preFix = "";
+                    boolean flag = true;
+                    while((line = br.readLine()) != null) {
+                        if(line .indexOf("@RequestMapping") >= 0) {
+                            if(line.trim().startsWith("/*") || line.trim().startsWith("//")) {
+                                //System.out.println(line);
+                            }else if(flag) {
+                                preFix=line.replaceAll("[^\"]*\"(.*)\"[^\"]*", "$1/");
+                            } else {
+                                System.out.println("\t" + (preFix + line.replaceAll("[^\"]*\"([^\"]*?)\".*", "$1"))
+                                        .replaceAll("^/+", "").replaceAll("/+$", "").replaceAll("/+", "/"));
+                            }
+                        } else if(flag && line.matches("\\s*public\\s*class\\s*[a-zA-Z0-9]*Controll[eo]r.*\\{\\s*")) {
+                            flag = false;
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

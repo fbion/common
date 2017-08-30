@@ -1,4 +1,4 @@
-package test;
+package Algorithms;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author 周志辉
  */
-public class Test37 {
+public class Fetch {
 
     public static LinkedList<String> fetch(LinkedList<String> list, int n) {
         if(n > list.size()) {
