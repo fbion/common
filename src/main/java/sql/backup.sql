@@ -44,6 +44,9 @@ SELECT count(1) FROM data_t WHERE date<'2017-01-23 19:45:49' AND date>'2017-01-1
 #1102934
 
 
+#查数据库大小
+use 数据库名
+SELECT sum(DATA_LENGTH)+sum(INDEX_LENGTH) FROM information_schema.TABLES where TABLE_SCHEMA='数据库名';
 #查表大小
 use information_schema;
 select (data_length+index_length)/1024/1024  from tables where table_schema='data' and table_name = 'data'
