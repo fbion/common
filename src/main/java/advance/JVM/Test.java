@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
 /**
- * 描述： <br>
+ * 描述： 不同于深入虚拟机中的结果，能调用祖类方法的被当BUG修复掉了<br>
  * 创建时间: 2017/9/517:37 <br>
  *
  * @author 周志辉
