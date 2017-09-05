@@ -8,6 +8,7 @@ import java.lang.invoke.MethodType;
 
 /**
  * 描述： <br>
+ * 备注：报错，深入JAVA虚拟机P265有源码
  * 创建时间: 2017/8/3117:40 <br>
  *
  * @author 周志辉
