@@ -45,7 +45,9 @@ public class CsvConverter {
             String line = br.readLine();
             String[] array = null;
             int menuIndex = 1;
-            String menuPrefix = "interface";
+            int interfaceIndex = 1;
+            String interfacePrefix = "interface";
+            String menuPrefix = "menu";
             String menuId = null;
             String url = null;
             String description = null;
@@ -64,8 +66,10 @@ public class CsvConverter {
                 }
                 url = array[3];
                 description = array[5];
-                menuId = menuPrefix + getFixedLengthString(menuIndex++, 4, "0");
-                //添加menu表记录
+                menuId = "".equals(array[1]) ?
+                        (interfacePrefix + getFixedLengthString(interfaceIndex++, 4, "0")) :
+                        (menuPrefix + getFixedLengthString(menuIndex++, 4, "0"));
+                        //添加menu表记录
                 menuBw.write( menuId + "," + url + "," +
                         1 + "," + description + "\n");
 

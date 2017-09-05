@@ -114,6 +114,12 @@
         <version>4.5.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.8</version>
+        </dependency>
+
         <!--html解析工具-->
         <dependency>
             <groupId>org.jvnet.hudson.dom4j</groupId>

@@ -172,8 +172,9 @@ public class DataBaseSrcipts {
     }
 
     public static void main(String[] args) {
-//        csv2Sql("D:\\work\\项目\\CTS\\数据库\\new\\interface.csv", "D:\\work\\项目\\CTS\\数据库\\new\\interface.sql");
-        csv2Sql("D:\\work\\项目\\CTS\\数据库\\new\\roleMenu.csv", "D:\\work\\项目\\CTS\\数据库\\new\\roleMenu.sql");
+        csv2Sql("D:\\work\\项目\\CTS\\数据库\\new\\interface.csv", "D:\\work\\项目\\CTS\\数据库\\new\\interface.sql");
+        csv2Sql("D:\\work\\项目\\CTS\\数据库\\new\\roleMenu.csv",
+                "D:\\work\\项目\\CTS\\数据库\\new\\roleMenu.sql");
 //        dealWithDumpedSqlFile("D:\\work\\项目\\others\\众创平台\\ZCPDev.sql");
     }
 }
