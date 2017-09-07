@@ -44,7 +44,8 @@ public class Test {
 
 
     public static void main(String[] args) {
-        (new Test().new Son()).thinking();
+//        (new Test().new Son()).thinking();
+        System.out.println(new Object() + "asdf");
     }
 }
 
