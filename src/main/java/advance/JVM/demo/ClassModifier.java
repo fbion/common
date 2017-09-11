@@ -44,16 +44,30 @@ public class ClassModifier {
                 int len = ByteUtils.bytes2Int(classBytes, offset + u1, u2);
                 offset += u1 + u2;
                 String str = ByteUtils.bytes2String(classBytes, offset, len);
+                if(str.equals(oldeStr)) {
+                    byte[] strBytes = ByteUtils.string2Bytes(newStr);
+                    byte[] strLen = ByteUtils.int2Bytes(newStr.length(), u2);
+                    classBytes = ByteUtils.bytesReplace(classBytes, offset - u2, u2, strLen);
+                    classBytes = ByteUtils.bytesReplace(classBytes, offset, len, strBytes);
+                    return classBytes;
+                } else {
+                    offset += len;
+                }
+            } else {
+                offset += CONSTANT_ITEM_LENGTH[tag];
             }
         }
-        
-
-        return null;
+        return classBytes;
     }
 
 
+    /**
+     * 描述： 获取常量池中常量的数量<br>
+     * 创建时间: 2017/9/1115:02 <br>
+     *
+     * @return 常量池数量
+     */
     private int getConstantPoolCount() {
-
-        return 0;
+        return ByteUtils.bytes2Int(classBytes, CONSTANT_POOL_COUNT_INDEX, u2);
     }
 }
