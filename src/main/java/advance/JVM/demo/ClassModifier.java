@@ -35,4 +35,25 @@ public class ClassModifier {
     }
 
 
+    public byte[] modiryUTF8Constant(String oldeStr, String newStr) {
+        int cpc = getConstantPoolCount();
+        int offset = CONSTANT_POOL_COUNT_INDEX * u2;
+        for (int i = 0; i < cpc; i++) {
+            int tag = ByteUtils.bytes2Int(classBytes, offset, u1);
+            if(tag == CONSTANT_utf8_info) {
+                int len = ByteUtils.bytes2Int(classBytes, offset + u1, u2);
+                offset += u1 + u2;
+                String str = ByteUtils.bytes2String(classBytes, offset, len);
+            }
+        }
+        
+
+        return null;
+    }
+
+
+    private int getConstantPoolCount() {
+
+        return 0;
+    }
 }
