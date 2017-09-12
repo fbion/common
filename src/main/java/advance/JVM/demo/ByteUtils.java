@@ -8,9 +8,24 @@ package advance.JVM.demo;
  */
 public class ByteUtils {
 
-    public static int bytes2Int(byte[] classBytes, int offset, int u1) {
+    public static int bytes2Int(byte[] bytes, int start, int len) {
+        int sum = 0;
+        int end = start + len;
+        for (int i = start; i < end; i++) {
+            int n = ((int) bytes[i]) & 0xff;
+            n <<= (--len) * 8;
+            sum = n + sum;
+        }
+        return sum;
+    }
 
-        return 0;
+
+    public static byte[] int2Bytes(int value, int len) {
+        byte[] b = new byte[len];
+        for (int i = 0; i < len; i++) {
+            b[len - i - 1] = (byte) ((value >> 8 * i) & 0xff);
+        }
+        return b;
     }
 
 
@@ -24,14 +39,12 @@ public class ByteUtils {
     }
 
 
-    public static byte[] int2Bytes(int length, int u2) {
-
-        return null;
-    }
-
-
-    public static byte[] bytesReplace(byte[] classBytes, int i, int u2, byte[] strLen) {
-
-        return null;
+    public static byte[] bytesReplace(byte[] originalBytes, int offset, int len, byte[] replaceBytes) {
+        byte[]  newBytes = new byte[originalBytes.length + (replaceBytes.length - len)];
+        System.arraycopy(originalBytes, 0, newBytes, 0, offset);
+        System.arraycopy(replaceBytes, 0, newBytes, offset, replaceBytes.length);
+        System.arraycopy(originalBytes, offset + len, newBytes,
+                offset + replaceBytes.length, originalBytes.length - offset - len);
+        return newBytes;
     }
 }
