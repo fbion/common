@@ -230,6 +230,13 @@
             <artifactId>selenium-server</artifactId>
             <version>3.4.0</version>
         </dependency>
+
+        <!--google guava-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
     </dependencies>
 
     <build>
