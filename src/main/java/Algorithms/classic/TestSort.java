@@ -62,7 +62,9 @@ public class TestSort {
 
     public static int[] bubbleSort(int[] array) {
         int temp;
+        //外层从左边往右移
         for (int i = 0; i < array.length; i++) {
+            //内层从右往左移，每次把最大或最小的，移到最左侧，这样外层当前序号前面的都是那次循环里最大或最小的
             for (int j = array.length - 1; j > 0; j--) {
                 if(array[j - 1] > array[j]) {
                     temp = array[j - 1];
@@ -272,15 +274,30 @@ public class TestSort {
         }
     }
 
+    public static int[] test(int[] unsorted) {
+        int temp;
+        for (int i = 0; i < unsorted.length; i++) {
+            for (int j = i; j < unsorted.length; j++) {
+                if(unsorted[i] > unsorted[j]) {
+                    temp = unsorted[i];
+                    unsorted[i] = unsorted[j];
+                    unsorted[j] = temp;
+                }
+            }
+        }
+        return unsorted;
+    }
+
     public static void main(String[] args) {
         int[] array;
         for (int i = 0; i < 10000; i++) {
             array = createRandomArray(10, 100);
-            if(!isSorted(selectSort(array))) {
+            if(!isSorted(test(array))) {
                 System.out.println(false);
                 System.exit(1);
             }
         }
         System.out.println("over");
+
     }
 }

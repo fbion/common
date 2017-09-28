@@ -9,8 +9,8 @@ public class TestInteger {
      * @param args
      */
     public static void main(String[] args) {
-        for (int i = 1; i <= 20; i++) {
-            Integer i1 = new Integer(i);
+        for (int i = 255; i <= 257; i++) {
+            Integer i1 = i;
             Integer i2 = i;
             System.out.println( i + " : " + (i1 == i2));
         }

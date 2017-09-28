@@ -3,7 +3,7 @@ package advance.JVM;
 /**
  * 描述： <br>
  * 创建时间: 2017/9/1817:58 <br>
- *  -XX:+PrintCompilation -XX:+PrintInlining
+ *  -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining -XX:+PrintOptoAssembly
  * @author 周志辉
  */
 public class Test1 {
