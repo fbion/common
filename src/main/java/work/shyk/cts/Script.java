@@ -1,4 +1,4 @@
-package test;
+package work.shyk.cts;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
