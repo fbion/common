@@ -1,5 +1,6 @@
 package advance.JVM.concurrent;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -8,7 +9,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author 周志辉
  */
-public class Test1 {
+public class Test1 implements Serializable{
+
     public static void main(String[] args) throws InterruptedException {
         Holder holder = new Holder(0);
         for (int i = 0; i < 100; i++) {
