@@ -18,7 +18,7 @@ public class HelloWorld extends UntypedActor {
     @Override
     public void preStart() throws Exception {
         greeter = getContext().actorOf(Props.create(Greeter.class), "greeter");
-        System.out.println("Greeter Actor Path:" + greeter.path());
+        System.out.println("Thread " + Thread.currentThread().getName() + "\tGreeter Actor Path:" + greeter.path());
         greeter.tell(Greeter.Msg.GREET, getSelf());
     }
 
@@ -26,6 +26,7 @@ public class HelloWorld extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Exception {
         if (msg == Greeter.Msg.DONE) {
+            System.out.println("Thread " + Thread.currentThread().getName() + "\treceived message");
             greeter.tell(Greeter.Msg.DONE, getSelf());
             getContext().stop(getSelf());
         } else {

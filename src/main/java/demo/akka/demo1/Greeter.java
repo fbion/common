@@ -15,7 +15,8 @@ public class Greeter extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Exception {
         if(msg ==Msg.GREET) {
-            System.out.println("Hello World!");
+            System.out.println("Thread " + Thread.currentThread().getName() + "\treceived message");
+            System.out.println("Thread " + Thread.currentThread().getName() + "\tHello World!");
             getSender().tell(Msg.DONE, getSelf());
         } else {
             unhandled(msg);
