@@ -34,8 +34,10 @@ public class VolatileTest {
             threads[i].start();
         }
         //等待所有累加线程都结束
-        while (Thread.activeCount() > 1)
-        Thread.yield();
+        while (Thread.activeCount() > 1) {
+            Thread.yield();
+        }
+
         System.out.println(race);
     }
 }

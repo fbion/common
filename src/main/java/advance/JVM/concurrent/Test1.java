@@ -28,7 +28,7 @@ public class Test1 implements Serializable{
                 }
             }){{setDaemon(true);}}.start();
         }
-        TimeUnit.SECONDS.sleep(25);
+        TimeUnit.SECONDS.sleep(500);
         System.out.println("over");
     }
 }
