@@ -41,13 +41,6 @@ public class Addresser {
 
         //Verify address works - should see the characters in the array in the output
         printBytes(address, 27);
-
-        long intClassAddress = normalize(GetUnsafe.getUnsafe().getInt(new Integer(0), 4L));
-        System.out.println(intClassAddress);
-        long strClassAddress = normalize(GetUnsafe.getUnsafe().getInt("", 4L));
-        System.out.println(strClassAddress);
-        GetUnsafe.getUnsafe().putAddress(intClassAddress + 36, strClassAddress);
-        System.out.println(3);
     }
 
 
@@ -57,12 +50,5 @@ public class Addresser {
             System.out.print((char) cur);
         }
         System.out.println();
-    }
-
-    private static long normalize(int value) {
-        if (value >= 0) {
-            return value;
-        }
-        return (~0L >>> 32) & value;
     }
 }
