@@ -1,4 +1,4 @@
-package com.whchem.sso.server.uic.utils;
+package utils.http;
 
 import org.apache.http.Consts;
 import org.apache.http.Header;
@@ -13,6 +13,7 @@ import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -24,9 +25,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
@@ -34,6 +33,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 项目名称：SINOPEC-CTS<br/>
@@ -101,30 +103,25 @@ public class HttpUtil {
      * @throws KeyManagementException
      */
     private static SSLContext createIgnoreVerifySSL() throws NoSuchAlgorithmException, KeyManagementException {
-        SSLContext sc = SSLContext.getInstance("SSLv3");
-
-        // 实现一个X509TrustManager接口，用于绕过验证，不用修改里面的方法
-        X509TrustManager trustManager = new X509TrustManager() {
+        SSLContext ctx = SSLContext.getInstance("SSL");
+        X509TrustManager tm = new X509TrustManager() {
             @Override
-            public void checkClientTrusted(
-                    java.security.cert.X509Certificate[] paramArrayOfX509Certificate,
-                    String paramString) throws CertificateException {
+            public void checkClientTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
             }
-
             @Override
-            public void checkServerTrusted(
-                    java.security.cert.X509Certificate[] paramArrayOfX509Certificate,
-                    String paramString) throws CertificateException {
+            public void checkServerTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
             }
-
             @Override
-            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+            public X509Certificate[] getAcceptedIssuers() {
                 return null;
             }
         };
-
-        sc.init(null, new TrustManager[] { trustManager }, null);
-        return sc;
+        ctx.init(null, new TrustManager[]{tm}, null);
+        SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx, NoopHostnameVerifier.INSTANCE);
+        CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().setSSLSocketFactory(socketFactory).build();
+        return ctx;
     }
 
     public  static void ignoreCert() throws KeyManagementException, NoSuchAlgorithmException {
@@ -214,33 +211,33 @@ public class HttpUtil {
         return -1;
     }
 
-    public static ResonseEntity doGetRequest(String url) throws IOException {
+    public static ResponseEntity doGetRequest(String url) throws IOException {
         return doGetRequest(url, new Header[]{});
     }
 
-    public static ResonseEntity doGetRequest(String url, Header[] headers) throws IOException {
+    public static ResponseEntity doGetRequest(String url, Header[] headers) throws IOException {
         logger.info("request url : " + url);
         HttpGet httpGet = new HttpGet(url);
         RequestConfig requestConfig = RequestConfig.custom()
                 .build();
         httpGet.setConfig(requestConfig);
         httpGet.setHeaders(headers);
-        return assambleResonseEntity(httpClient.execute(httpGet));
+        return assambleResponseEntity(httpClient.execute(httpGet));
     }
 
 
-    public static ResonseEntity doPostRequest(String url, String postData) throws
+    public static ResponseEntity doPostRequest(String url, String postData) throws
             IOException {
         return doPostRequest(url, new Header[]{}, postData);
     }
 
 
-    public static ResonseEntity doPostRequest(String url, Header[] headers, String postData) throws
+    public static ResponseEntity doPostRequest(String url, Header[] headers, String postData) throws
             IOException {
         return doPostRequest(url, headers, postData, CONTENT_TYPE_HTML);
     }
 
-    public static ResonseEntity doPostRequest(String url, Header[] headers, String postData,
+    public static ResponseEntity doPostRequest(String url, Header[] headers, String postData,
                                                       ContentType contentType) throws IOException {
         logger.debug("request url : " + url);
         logger.debug("request postData : " + postData);
@@ -253,11 +250,12 @@ public class HttpUtil {
                 new StringEntity(postData,contentType));
         httpPost.setEntity(entity);
 
-        return assambleResonseEntity(httpClient.execute(httpPost));
+        return assambleResponseEntity(httpClient.execute(httpPost));
     }
 
-    public static ResonseEntity assambleResonseEntity(CloseableHttpResponse response) {
-        ResonseEntity entity = new ResonseEntity();
+
+    public static ResponseEntity assambleResponseEntity(CloseableHttpResponse response) {
+        ResponseEntity entity = new ResponseEntity();
         entity.setCode(response.getStatusLine().getStatusCode());
         try {
             entity.setResponseBody(EntityUtils.toString(response.getEntity(), Consts.UTF_8));
@@ -270,7 +268,7 @@ public class HttpUtil {
         return entity;
     }
 
-    public static class ResonseEntity {
+    public static class ResponseEntity {
         private int code;
 
         private String responseBody;
@@ -286,13 +284,13 @@ public class HttpUtil {
         }
 
 
-        public ResonseEntity setCode(int code) {
+        public ResponseEntity setCode(int code) {
             this.code = code;
             return this;
         }
 
 
-        public ResonseEntity setResponseBody(String responseBody) {
+        public ResponseEntity setResponseBody(String responseBody) {
             this.responseBody = responseBody;
             return this;
         }
@@ -300,12 +298,23 @@ public class HttpUtil {
 
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-        ignoreCert();
-        ResonseEntity resonseEntity1 = doGetRequest("https://baidu.com");
-        System.out.println(resonseEntity1.getResponseBody());
-        System.out.println("-----------------------------------------------------------------------------");
+//        ignoreCert();
+//        ResponseEntity ResponseEntity1 = doGetRequest("https://baidu.com");
+//        System.out.println(ResponseEntity1.getResponseBody());
+//        System.out.println("-----------------------------------------------------------------------------");
+//
+//        ResponseEntity responseEntity2 = doGetRequest("https://uat-jira.paas.sinopec.com/login.jsp");
+//        System.out.println(responseEntity2.getResponseBody());
 
-        ResonseEntity responseEntity2 = doGetRequest("https://uat-jira.paas.sinopec.com/login.jsp");
-        System.out.println(responseEntity2.getResponseBody());
+//        String adfsToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ind5VlZqUG9VbWFjQ3dHdFd1VzJIT2FYQWtwQSJ9.eyJhdWQiOiJodHRwOi8vcHJpdmF0ZWNsb3Vkc2VydmljZSIsImlzcyI6Imh0dHA6Ly9hZGZzLmNsb3VkLnNpbm9wZWMuY29tL2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE1MTM2NTQxNTIsImV4cCI6MTUxMzc0MDU1MiwiY29tbW9ubmFtZSI6IuWRqOW_l-i-iSIsInVuaXF1ZV9uYW1lIjoiemhpaHVpLnpob3UiLCJ1cG4iOiJ6aGlodWkuemhvdUBzaW5vcGVjLmNvbSIsImVtYWlsIjoiemhpaHVpLnpob3VAcGNpdGMuY29tIiwiYXV0aF90aW1lIjoiMjAxNy0xMi0xOVQwMzoyOToxMi4yNjhaIiwiYXV0aG1ldGhvZCI6Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9hdXRoZW50aWNhdGlvbm1ldGhvZC9wYXNzd29yZCIsInZlciI6IjEuMCJ9.g5yg1Hy46FpEvGy4Dmx6TSe-ZQx6EJXAKyg9adCGY5XtS4RUZkryTN0YZ7V0FCqeNyisDiLOtfuUuaI3HcSUqRbY75BqJJ0iTSNpslUB-RaniTTy6AjNEOQtTquC72Y0AvhUnNht5y2M4xa4HkSQjWZDjjQ6UdL2IUV9NAaT2pYrCRUIkPKO03lXI8U6i1H546qtWvGb7LDLc9FBZ5qfs3_rzIRp9Jrnv7RIg9CBpp_4xxkOWWUzRYcL0BmjgS34OatjH-xtEjf6VAn5zzP3Z8UwJvrlOXYPN3reO4JurRhtlQd89dArqc30xF1R4OMifWoFRL14Lws1R_foTTCh7g";
+//        String pcitcToken = "xCxATVyxpZzV7JxlfXPe8QIyJXl9QjlfSOoXd3esqjrGzPobSGcAvQOszvyPOznFE6i2J3HQID8%3D";
+//        ignoreCert();
+//       ResponseEntity responseEntity = doGetRequest("http://cds.paas.sinopec.com/cds", new Header[]{new BasicHeader("Cookie",
+//               "adfs_sso_token=" + adfsToken + ";" +
+//                       "pcitc_sso_token=" + pcitcToken)});
+//        System.out.println(responseEntity.getCode());
+//        System.out.println(responseEntity.getResponseBody());
+
+        System.out.println(new SimpleDateFormat("yyyy MM-dd HH:mm:ss SSS").format(new Date()) );
     }
 }
