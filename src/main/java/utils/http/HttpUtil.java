@@ -34,8 +34,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 项目名称：SINOPEC-CTS<br/>
@@ -297,7 +297,7 @@ public class HttpUtil {
     }
 
 
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException, ParseException {
 //        ignoreCert();
 //        ResponseEntity ResponseEntity1 = doGetRequest("https://baidu.com");
 //        System.out.println(ResponseEntity1.getResponseBody());
@@ -306,15 +306,19 @@ public class HttpUtil {
 //        ResponseEntity responseEntity2 = doGetRequest("https://uat-jira.paas.sinopec.com/login.jsp");
 //        System.out.println(responseEntity2.getResponseBody());
 
-//        String adfsToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ind5VlZqUG9VbWFjQ3dHdFd1VzJIT2FYQWtwQSJ9.eyJhdWQiOiJodHRwOi8vcHJpdmF0ZWNsb3Vkc2VydmljZSIsImlzcyI6Imh0dHA6Ly9hZGZzLmNsb3VkLnNpbm9wZWMuY29tL2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE1MTM2NTQxNTIsImV4cCI6MTUxMzc0MDU1MiwiY29tbW9ubmFtZSI6IuWRqOW_l-i-iSIsInVuaXF1ZV9uYW1lIjoiemhpaHVpLnpob3UiLCJ1cG4iOiJ6aGlodWkuemhvdUBzaW5vcGVjLmNvbSIsImVtYWlsIjoiemhpaHVpLnpob3VAcGNpdGMuY29tIiwiYXV0aF90aW1lIjoiMjAxNy0xMi0xOVQwMzoyOToxMi4yNjhaIiwiYXV0aG1ldGhvZCI6Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9hdXRoZW50aWNhdGlvbm1ldGhvZC9wYXNzd29yZCIsInZlciI6IjEuMCJ9.g5yg1Hy46FpEvGy4Dmx6TSe-ZQx6EJXAKyg9adCGY5XtS4RUZkryTN0YZ7V0FCqeNyisDiLOtfuUuaI3HcSUqRbY75BqJJ0iTSNpslUB-RaniTTy6AjNEOQtTquC72Y0AvhUnNht5y2M4xa4HkSQjWZDjjQ6UdL2IUV9NAaT2pYrCRUIkPKO03lXI8U6i1H546qtWvGb7LDLc9FBZ5qfs3_rzIRp9Jrnv7RIg9CBpp_4xxkOWWUzRYcL0BmjgS34OatjH-xtEjf6VAn5zzP3Z8UwJvrlOXYPN3reO4JurRhtlQd89dArqc30xF1R4OMifWoFRL14Lws1R_foTTCh7g";
-//        String pcitcToken = "xCxATVyxpZzV7JxlfXPe8QIyJXl9QjlfSOoXd3esqjrGzPobSGcAvQOszvyPOznFE6i2J3HQID8%3D";
 //        ignoreCert();
-//       ResponseEntity responseEntity = doGetRequest("http://cds.paas.sinopec.com/cds", new Header[]{new BasicHeader("Cookie",
-//               "adfs_sso_token=" + adfsToken + ";" +
+//        String pcitcToken = "xCxATVyxpZzV7JxlfXPe8QIyJXl9QjlfSOoXd3esqjrGzPobSGcAvZRtG2pE04gshV%2BzVTKP6Dk%3D";
+//       ResponseEntity responseEntity = doGetRequest("http://docker.cts.paas-dev.sinopec.com/cts/index", new Header[]{new BasicHeader("Cookie",
 //                       "pcitc_sso_token=" + pcitcToken)});
 //        System.out.println(responseEntity.getCode());
 //        System.out.println(responseEntity.getResponseBody());
 
-        System.out.println(new SimpleDateFormat("yyyy MM-dd HH:mm:ss SSS").format(new Date()) );
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM-dd HH:mm:ss");
+//        sdf.setLenient(false);
+        sdf.setTimeZone(sdf.getTimeZone());
+
+        String data = "1986 05-04 00:00:00";
+        System.out.println(sdf.parse(data));
+        System.out.println(sdf.format(sdf.parse(data)));
     }
 }
