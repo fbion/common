@@ -3,7 +3,7 @@ package ideas;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import utils.http.HttpUtil;
+import utils.http.https.HttpUtil;
 
 import java.io.IOException;
 
