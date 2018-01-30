@@ -15,10 +15,7 @@ import java.net.URL;
 public class Test {
 
     public static void main(String[] args) {
-        if(args.length < 1) {
-            return;
-        }
-        String urlStr = args[0];
+        String urlStr  = args.length < 1 ? "https://cts.paas.sinopec.com/sessions/new" : args[0];
         try(BufferedReader bufr = new BufferedReader(new InputStreamReader(new BufferedInputStream(new URL(urlStr)
                 .openStream()), "utf-8"));) {
             String line;
