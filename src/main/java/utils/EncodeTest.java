@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
  * @author 周志辉
  */
 public class EncodeTest {
-    
+
     static Charset[] charsets = new Charset[5];
     static String[] charsetNames = {"UTF-8", "GBK", "ISO-8859-1", "GB2312", "UTF-16"};
     static {
@@ -20,7 +20,7 @@ public class EncodeTest {
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {
-        String str  = "未锟斤拷锟揭碉拷锟斤拷锟酵伙拷锟斤拷锟斤拷锟秸硷拷锟斤拷锟狡";
+        String str  = "一二三四五六七";
         byte[] bytes = str.getBytes("GBK");
         String temp;
         for (String charsetName : charsetNames) {
@@ -34,6 +34,6 @@ public class EncodeTest {
         }
 
 
-        
+
     }
 }
