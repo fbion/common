@@ -14,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -236,7 +237,9 @@ public class HttpUtil {
 
 
     public static void main(String[] args) throws IOException {
-        ResonseEntity responseEntity = doGetRequest("https://cts.paas.sinopec.com/sessions/new");
+        ResonseEntity responseEntity = doGetRequest("https://cts.paas.sinopec.com/cts/index.jsp",
+                new Header[]{new BasicHeader("JSESSIONID", "FCA4CB40FE8479562A5B8F0E72F0930E"),
+                new BasicHeader("pcitc_sso_token", "xCxATVyxpZzV7JxlfXPe8QIyJXl9QjlfSOoXd3esqjrGzPobSGcAvZaMfe%2BxjbVSiQ9pIyeNTr0%3D")});
         System.out.println(responseEntity.getCode());
         System.out.println(responseEntity.getResponseBody());
     }
