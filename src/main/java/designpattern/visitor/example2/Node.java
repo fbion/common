@@ -7,5 +7,5 @@ package designpattern.visitor.example2;
  * @author 周志辉
  */
 public interface Node{
-    public void accept(Visitor visitor);
+    void accept(Visitor visitor);
 }

@@ -7,6 +7,6 @@ package designpattern.visitor.example2;
  * @author 周志辉
  */
 public interface Visitor{
-    public void visit(NodeA nodeA);
-    public void visit(NodeB nodeB);
+    void visit(NodeA nodeA);
+    void visit(NodeB nodeB);
 }

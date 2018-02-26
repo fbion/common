@@ -1,10 +1,4 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
 
 /**
  * description： <br>
@@ -15,22 +9,8 @@ import java.net.URL;
 public class Test {
 
     public static void main(String[] args) {
-        String urlStr  = args.length < 1 ? "https://cts.paas.sinopec.com/sessions/new" : args[0];
-        try(BufferedReader bufr = new BufferedReader(new InputStreamReader(new BufferedInputStream(new URL(urlStr)
-                .openStream()), "utf-8"));) {
-            String line;
-            StringBuffer sb = new StringBuffer();
-            while ((line = bufr.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-            bufr.close();
-            System.out.println(sb.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       String filePath = "e:\\BK";
+       File file = new File(filePath);
+        System.out.println(file.length());
     }
 }
