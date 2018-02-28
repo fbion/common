@@ -1,6 +1,4 @@
-package advance.JVM.concurrent.test.test;
-
-import advance.JVM.concurrent.test.BoundedBuffer;
+package advance.JVM.concurrent.test.test1;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;

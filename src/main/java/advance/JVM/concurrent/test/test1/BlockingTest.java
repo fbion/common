@@ -1,6 +1,5 @@
-package advance.JVM.concurrent.test.test;
+package advance.JVM.concurrent.test.test1;
 
-import advance.JVM.concurrent.test.BoundedBuffer;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
