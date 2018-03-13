@@ -16,16 +16,22 @@ public class BoundedBuffer<V> extends BaseBoundedBuffer<V> {
         while(isFull()) {
             wait();
         }
+        boolean wasEmpty = isEmpty();
         doPut(v);
-        notifyAll();
+        if(wasEmpty) {
+            notifyAll();
+        }
     }
 
     public synchronized V take() throws InterruptedException {
         while(isEmpty()) {
             wait();
         }
+        boolean wasFul = isFull();
         V v = doTake();
-        notifyAll();
+        if(wasFul) {
+            notifyAll();
+        }
         return v;
     }
 }
