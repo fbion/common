@@ -4,7 +4,7 @@ import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
 /**
- * description： <br>
+ * description：有界缓存基础类 <br>
  * createTime: 2018/3/1215:54 <br>
  *
  * @author zzh
