@@ -43,7 +43,7 @@ public class ConcurrentStack<V> {
     }
 
 
-    static class Node<V> {
+    private static class Node<V> {
 
         private V item;
 
