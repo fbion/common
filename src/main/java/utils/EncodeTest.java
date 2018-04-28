@@ -21,19 +21,34 @@ public class EncodeTest {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
         String str  = "一二三四五六七";
-        byte[] bytes = str.getBytes("GBK");
-        String temp;
-        for (String charsetName : charsetNames) {
-            temp = new String(bytes, charsetName);
-            for (String name : charsetNames) {
-                for (String s : charsetNames) {
-                    System.out.print(String.format("%15s", name) + String.format("%15s", s) + "\t\t");
-                    System.out.println(new String(temp.getBytes(name), s));
+//        byte[] bytes = str.getBytes("GBK");
+//        String temp;
+//        for (String charsetName : charsetNames) {
+//            temp = new String(bytes, charsetName);
+//            for (String name : charsetNames) {
+//                for (String s : charsetNames) {
+//                    System.out.print(String.format("%15s", "GBK") + String.format("%15s", charsetName) + String.format("%15s", name) + String.format("%15s", s) + "\t\t");
+//                    System.out.println(new String(temp.getBytes(name), s));
+//                }
+//            }
+//        }
+
+        //遍历看哪些编码间乱码可以还原
+        for (String charsetName1 : charsetNames) {
+            for (String charsetName2 : charsetNames) {
+                //用charsetName1把String转byte[],再用charsetName2用byte[]构造String，再用charsetName2把String转成byte[]，
+                // 这里用charsetName2构造了String再转回byte[]，感觉像是还原成原来的byte[]，但某些编码之间通过这样的步骤是还原不了的
+                //最后再把byte[]用charsetName1转成String
+                if(!charsetName1.equals(charsetName2)) {
+                    String temp = new String(str.getBytes(charsetName1), charsetName2);
+                    String back = new String(temp.getBytes(charsetName2), charsetName1);
+                    if(str.equals(back)) {
+                        System.out.print(String.format("%15s", charsetName1) + String.format("%15s", charsetName2) + "\t\t");
+                        System.out.print(temp + "\t\t\t");
+                        System.out.println(back);
+                    }
                 }
             }
         }
-
-
-
     }
 }

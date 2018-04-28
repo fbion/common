@@ -93,7 +93,64 @@ public class TestSort {
     }
 
     public static int[] sort(int[] array) {
+        //冒泡1
+//        int temp;
+//        for (int i = 0; i < array.length; i++) {
+//            for (int j = array.length - 1; j > i; j--) {
+//                if(array[j - 1] > array[j]) {
+//                    temp = array[j];
+//                    array[j] = array[j- 1];
+//                    array[j - 1] = temp;
+//                }
+//            }
+//        }
+
+        //冒泡2
+//        int temp;
+//        for (int out = array.length - 1; out > 0; out--) {
+//            for (int in = 0; in < out; in++) {
+//                if(array[in] > array[in + 1]) {
+//                    temp = array[in];
+//                    array[in] = array[in + 1];
+//                    array[in + 1] = temp;
+//                }
+//            }
+//        }
+
+        //选择排序
+//        int tempIndex, temp;
+//        for (int out = 0; out < array.length; out++) {
+//            tempIndex = out;
+//            for (int in = out + 1; in < array.length; in++) {
+//                if(array[in] < array[tempIndex]) {
+//                    tempIndex = in;
+//                }
+//            }
+//            temp = array[out];
+//            array[out] = array[tempIndex];
+//            array[tempIndex] = temp;
+//        }
+
+
         //插入排序
+        int temp, current;
+        for (int out = 1; out < array.length; out++) {
+            current = array[out];
+            for (int in = out - 1; in >= 0; in--) {
+                if(array[in] < current) {
+                    temp = array[in];
+                    array[in] = array[in + 1];
+                    array[in + 1] = temp;
+                }
+            }
+        }
+
+
+
+
+
+
+
 //        int temp, j;
 //        for (int i = 0; i < array.length; i++) {
 //            temp = array[i];
@@ -121,20 +178,6 @@ public class TestSort {
 //            }
 //            d /= 2;
 //        }
-
-
-        //冒泡
-        int temp;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = array.length - 1; j > i; j--) {
-                if(array[j - 1] > array[j]) {
-                    temp = array[j];
-                    array[j] = array[j- 1];
-                    array[j - 1] = temp;
-                }
-            }
-        }
-
 
         //鸡尾酒排序
 //        boolean flag = false;
