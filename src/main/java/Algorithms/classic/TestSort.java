@@ -1,5 +1,6 @@
 package Algorithms.classic;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -133,16 +134,15 @@ public class TestSort {
 
 
         //插入排序
-        int temp, current;
+        int  current;
         for (int out = 1; out < array.length; out++) {
             current = array[out];
-            for (int in = out - 1; in >= 0; in--) {
-                if(array[in] < current) {
-                    temp = array[in];
-                    array[in] = array[in + 1];
-                    array[in + 1] = temp;
-                }
+            int in = out - 1;
+            while(in >=0 && array[in] > current) {
+                array[in + 1] = array[in];
+                in--;
             }
+            array[in + 1] = current;
         }
 
 
@@ -280,15 +280,6 @@ public class TestSort {
         return array;
     }
 
-    public static boolean isSorted(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            if(array[i] > array[i + 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void test() {
         int[] array;
         int[] tempArray;
@@ -331,16 +322,31 @@ public class TestSort {
         return unsorted;
     }
 
+    public static boolean isSorted(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            if(array[i] > array[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean equalIgnorePosition (int[] array1, int[] array2) {
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+        return Arrays.equals(array1, array2);
+    }
+
     public static void main(String[] args) {
         int[] array;
         for (int i = 0; i < 10000; i++) {
             array = createRandomArray(10, 100);
-            if(!isSorted(test(array))) {
+            int[] temp = sort(array.clone());
+            if(!isSorted(temp) || !equalIgnorePosition(array, temp)) {
                 System.out.println(false);
                 System.exit(1);
             }
         }
         System.out.println("over");
-
     }
 }
