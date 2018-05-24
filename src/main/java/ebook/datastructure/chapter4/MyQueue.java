@@ -1,4 +1,4 @@
-package ebook.datastructure;
+package ebook.datastructure.chapter4;
 
 /**
  * description: <br>
@@ -16,7 +16,7 @@ public class MyQueue<E> {
 
     private int head = 0;
 
-    private int tail = -1;
+    private int tail = capacity - 1;
 
     private int size = 0;
 

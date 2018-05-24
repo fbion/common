@@ -1,4 +1,4 @@
-package ebook.datastructure;
+package ebook.datastructure.chapter4;
 
 /**
  * description: <br>
