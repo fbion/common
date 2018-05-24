@@ -25,7 +25,7 @@ public class CsvUtils {
     public static  List<List<String>> readCsv(String filePath) throws IOException {
         return readCsv(filePath, DEFAULT_SEPARATE);
     }
-    
+
     public static List<List<String>> readCsv(String filePath, String separate) throws IOException {
         try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             List<List<String>> result = new ArrayList<>();
@@ -45,5 +45,10 @@ public class CsvUtils {
             LOGGER.error("文件读取异常。", e);
             throw e;
         }
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        System.out.println(readCsv("e:\\2.txt", "\t"));
     }
 }
