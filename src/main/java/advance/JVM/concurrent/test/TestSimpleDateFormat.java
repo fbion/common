@@ -40,5 +40,6 @@ public class TestSimpleDateFormat {
                 }
             });
         }
+        es.shutdown();
     }
 }
