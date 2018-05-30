@@ -233,12 +233,12 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.15</version>
+            <version>3.17</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.15</version>
+            <version>3.17</version>
         </dependency>
 
         <!-- selenium webDriver -->
@@ -311,6 +311,11 @@
             <version>4.12</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython</artifactId>
+            <version>2.7-rc3</version>
+        </dependency>
     </dependencies>
 
     <build>
