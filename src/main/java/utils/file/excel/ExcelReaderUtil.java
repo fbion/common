@@ -129,12 +129,30 @@ public class ExcelReaderUtil {
     }
 
 
-    public interface SheetReader<I> {
+    public interface SheetReader<I> extends Reader {
         I read(Sheet sheet);
     }
 
-    public interface RowReader<I> {
+    public interface RowReader<I> extends Reader {
         I read(Row row);
+    }
+
+    public interface Reader{
+        default String getCellValue(Cell cell){
+
+            if(cell == null) return "";
+
+            if(cell.getCellType() == Cell.CELL_TYPE_STRING){
+                return cell.getStringCellValue();
+            }else if(cell.getCellType() == Cell.CELL_TYPE_BOOLEAN){
+                return String.valueOf(cell.getBooleanCellValue());
+            }else if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
+                return cell.getCellFormula() ;
+            }else if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
+                return String.valueOf(cell.getNumericCellValue());
+            }
+            return "";
+        }
     }
 
     public interface SheetSelector {
@@ -182,8 +200,7 @@ public class ExcelReaderUtil {
                     new ExcelReaderUtil.RowReader() {
                         @Override
                         public String read(Row row) {
-                            Cell cell = row.getCell(0);
-                            return cell.toString().replaceAll("'", "");
+                            return getCellValue(row.getCell(0));
                         }
                     });
             System.out.println(list);

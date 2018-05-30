@@ -226,11 +226,6 @@
 
         <!--excel工具包-->
         <dependency>
-            <groupId>org.lucee</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.15.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.17</version>
