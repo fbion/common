@@ -18,6 +18,10 @@ public class App {
         // 新建MBean ObjectName, 在MBeanServer里标识注册的MBean
         ObjectName name = new ObjectName("advance.mbean:type=Echo");
 
+
+        MyTest mytest = new MyTest();
+        ObjectName mytestName = new ObjectName("advance.mbean:type=MyTest");
+        mbs.registerMBean(mytest, mytestName);
         // 创建MBean
         Echo mbean = new Echo();
 
@@ -27,6 +31,8 @@ public class App {
 
         // 在MBeanServer里调用已注册的EchoMBean的print方法
         mbs.invoke(name, "print", new Object[] { "haitao.tu"}, new String[] {"java.lang.String"});
+
+        mbs.invoke(mytestName, "test", new Object[] {}, new String[] {});
 
         Thread.sleep(Long.MAX_VALUE);
     }
