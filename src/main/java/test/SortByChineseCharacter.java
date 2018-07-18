@@ -7,8 +7,9 @@ import java.util.Comparator;
 
 /**
  * Created by Administrator on 2016/7/27.
+ * 按中文排序
  */
-public class Test1 {
+public class SortByChineseCharacter {
     public static void sortByChineseCharacter() throws IllegalAccessException, InstantiationException {
         Comparator<Object> com= Collator.getInstance(java.util.Locale.CHINA);
         String[] newArray={"abc", "VIP", "中山","汕头","广州","安庆","阳江","南京","武汉","北京","安阳","北方"};
@@ -18,22 +19,7 @@ public class Test1 {
         }
     }
 
-    static void mytest(MyInterface i) {
-        System.out.println(i.test());
-    }
-
-
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, UnsupportedEncodingException {
-//        String s = "";
-//        s += null;
-//        System.out.println(s);
-//        String s1 = null;
-//        s1 += "";
-
-//        sortByChineseCharacter();
+        sortByChineseCharacter();
     }
-}
-
-interface MyInterface{
-    String test();
 }
