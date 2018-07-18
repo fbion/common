@@ -1,4 +1,4 @@
-package test;
+package test.innerouter;
 
 /**
  * Created by Administrator on 2016/5/25.
@@ -36,8 +36,5 @@ public class TestInner {
         System.out.println(in.getClass().isSynthetic());
         System.out.println(StaticInner.class.isSynthetic());
         System.out.println(TestInner.class.isSynthetic());
-//        Class clazz = Class.forName("test.TestInner$Inner");
-//        Inner inner = (Inner)clazz.newInstance();
-//        System.out.println(inner);
     }
 }

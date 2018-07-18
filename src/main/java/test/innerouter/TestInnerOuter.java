@@ -1,4 +1,4 @@
-package test;
+package test.innerouter;
 
 import java.lang.reflect.Method;
 

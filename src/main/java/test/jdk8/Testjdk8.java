@@ -1,4 +1,4 @@
-package test;
+package test.jdk8;
 
 import java.util.ArrayList;
 import java.util.List;

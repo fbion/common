@@ -1,4 +1,4 @@
-package test;
+package test.base;
 
 /**
  * description: <br>
@@ -6,7 +6,7 @@ package test;
  *
  * @author zzh
  */
-public class Test39 {
+public class TestIntClass {
 
     public static void main(String[] args) {
         System.out.println(int.class);

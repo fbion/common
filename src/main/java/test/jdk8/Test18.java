@@ -1,11 +1,10 @@
-package test;
+package test.jdk8;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -26,8 +25,5 @@ public class Test18 {
                 return formatter1.format(new Long(temp[0])) + (temp.length > 1 ? "." + temp[1] :"");
             }).collect(Collectors.toList());
         strList.forEach(System.out::println);
-
-        String str = "1\2\3\4";
-        System.out.println(str.replaceAll("\\\\", "\\"));
     }
 }

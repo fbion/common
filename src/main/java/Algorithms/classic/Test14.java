@@ -1,18 +1,15 @@
-package test;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+package Algorithms.classic;
 
 /**
  * Created by Administrator on 2016/4/28.
+ * 展转相除求最小公约数
  */
 public class Test14 {
     public static void main(String[] args){
         Multiple m =new Multiple();
         System.out.println(m.NumberOff(18,6));
+        System.out.println(m.NumberOff(12,4));
+        System.out.println(m.NumberOff(18,5));
     }
 
 }
